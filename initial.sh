@@ -70,6 +70,7 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 
 # gesture
+sudo apt install python3 python3-setuptools xdotool python3-gi libinput-tools python-gobject
 git clone https://gitlab.com/cunidev/gestures
 cd gestures
 sudo python3 setup.py install
