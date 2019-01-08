@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 # basic
 sudo apt update
 sudo apt install software-properties-common apt-transport-https \
-         curl wget vim git gcc build-essential xclip xsel -y
+         curl wget vim git gcc build-essential xclip xsel snapd -y
 
 
 # install ansible
@@ -89,10 +89,14 @@ sudo apt install code
 wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.11.4.linux-amd64.tar.gz
 mkdir ~/go/src ~/go/pkg ~/go/bin
-
+mkdir ~/go/src/github.com/hiromaily
 
 # modified ~/.profile
 #PATH=$PATH:/usr/local/go/bin
+
+
+# IintelliJ Idea
+sudo snap install intellij-idea-community --classic
 
 
 # gesture
