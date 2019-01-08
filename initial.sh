@@ -18,19 +18,6 @@ sudo apt install ansible
 ansible --version
 
 
-# chrome
-sudo apt install gdebi-core
-wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-sudo gdebi google-chrome-stable_current_amd64.deb
-#google-chrome
-
-
-# visual studio code
-wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
-sudo apt install code
-
-
 # ssh
 ssh-keygen -t rsa -b 4096 -C "my@gmail.com"
 
@@ -53,6 +40,14 @@ git config --global core.editor 'vim -c "set fenc=utf-8"'
 git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
+
+
+# chrome
+sudo apt install gdebi-core
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo gdebi google-chrome-stable_current_amd64.deb
+#google-chrome
+
 
 
 # docker
@@ -84,6 +79,18 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 
 
+# visual studio code
+wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+sudo apt install code
+
+
+# golang
+wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
+tar -C /usr/local -xzf go1.11.4.linux-amd64.tar.gz
+#export PATH=$PATH:/usr/local/go/bin
+
+
 # gesture
 # https://www.omgubuntu.co.uk/2018/09/linux-touchpad-gestures-app
 # https://github.com/bulletmark/libinput-gestures
@@ -106,9 +113,15 @@ sudo python3 setup.py install
 
 
 # add to .bashrc
+cat << "EOT" > ~/.bashrc
+
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+
+EOT
+
 #echo "abc" | pbcopy
+
 
 # check
 apt list --upgradable
