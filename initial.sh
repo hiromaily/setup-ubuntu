@@ -87,8 +87,12 @@ sudo apt install code
 
 # golang
 wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
-tar -C /usr/local -xzf go1.11.4.linux-amd64.tar.gz
-#export PATH=$PATH:/usr/local/go/bin
+sudo tar -C /usr/local -xzf go1.11.4.linux-amd64.tar.gz
+mkdir ~/go/src ~/go/pkg ~/go/bin
+
+
+# modified ~/.profile
+#PATH=$PATH:/usr/local/go/bin
 
 
 # gesture
