@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 # basic
 sudo apt update
 sudo apt install software-properties-common apt-transport-https \
-         curl wget vim git xclip xsel -y
+         curl wget vim git gcc build-essential xclip xsel -y
 
 
 # install ansible
@@ -47,8 +47,8 @@ xclip -selection clipboard < ~/.ssh/id_rsa.pub
 #ssh -T git@github.com
 
 # git settings
-git config --global user.name "hiromaily"
-git config --global user.email "hiromaily2@gmail.com"
+git config --global user.name "username"
+git config --global user.email "my@gmail.com"
 git config --global core.editor 'vim -c "set fenc=utf-8"'
 git config --global color.diff auto
 git config --global color.status auto
@@ -68,6 +68,13 @@ sudo apt install \
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
+sudo apt-key fingerprint 0EBFCD88
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
 
 # gesture
 # https://www.omgubuntu.co.uk/2018/09/linux-touchpad-gestures-app
@@ -80,7 +87,8 @@ git clone https://github.com/bulletmark/libinput-gestures.git
 cd libinput-gestures
 sudo make install (or sudo ./libinput-gestures-setup install)
 
-libinput-gestures-setup autostart
+# logout is required
+#libinput-gestures-setup autostart
 libinput-gestures-setup start
 
 sudo apt install python3 python3-setuptools xdotool python3-gi libinput-tools python-gobject
