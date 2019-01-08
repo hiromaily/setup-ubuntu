@@ -70,6 +70,19 @@ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 
 # gesture
+# https://www.omgubuntu.co.uk/2018/09/linux-touchpad-gestures-app
+# https://github.com/bulletmark/libinput-gestures
+# https://gitlab.com/cunidev/gestures
+sudo gpasswd -a $USER input
+sudo apt install xdotool wmctrl
+sudo apt install libinput-tools
+git clone https://github.com/bulletmark/libinput-gestures.git
+cd libinput-gestures
+sudo make install (or sudo ./libinput-gestures-setup install)
+
+libinput-gestures-setup autostart
+libinput-gestures-setup start
+
 sudo apt install python3 python3-setuptools xdotool python3-gi libinput-tools python-gobject
 git clone https://gitlab.com/cunidev/gestures
 cd gestures
