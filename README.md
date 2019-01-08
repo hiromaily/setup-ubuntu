@@ -22,6 +22,10 @@ setup ubuntu
 13. Alt+F2: Run console
 
 
+## Track Pad
+- right click -> tap by 2 finger
+
+
 ## About apt command
 sudo apt update
 sudo apt upgrade or sudo apt full-upgrade
@@ -52,11 +56,8 @@ apt changelog pkg_name
 ## Setup on Ubuntu
 [basic settings in Japanese](https://linuxfan.info/ubuntu-18-04-basic-settings)
 
-sudo apt update && sudo apt upgrade -y
 
-
-
-## Install languages
+### Install languages
 1. Open the Activities overview and start typing Region & Language.
 2. Click on Region & Language to open the panel.
 3. Click the Manage Installed Languages button to open Language Support.

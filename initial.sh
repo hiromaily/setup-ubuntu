@@ -1,6 +1,8 @@
 #!/bin/bash
 
 
+sudo apt update && sudo apt upgrade -y
+
 # basic
 sudo apt update
 sudo apt install software-properties-common apt-transport-https \
@@ -65,6 +67,12 @@ sudo apt install \
     software-properties-common
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+
+# gesture
+git clone https://gitlab.com/cunidev/gestures
+cd gestures
+sudo python3 setup.py install
 
 
 # add to .bashrc
