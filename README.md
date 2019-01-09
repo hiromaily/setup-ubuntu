@@ -47,6 +47,10 @@ apt depends pkg_name
 apt changelog pkg_name
 
 
+## On terminal
+- Ctrl + Z:
+
+
 ## use frequently
 - check global ip `curl inet-ip.info`
 - check os version `lsb_release -a`
@@ -66,3 +70,4 @@ apt changelog pkg_name
 6. Click Apply Changes.
 
 [Writing Japanese with Ubuntu 18.04 LTS Bionic Beaver](https://moritzmolch.com/2404)
+

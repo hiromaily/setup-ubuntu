@@ -73,6 +73,12 @@ sudo add-apt-repository \
 sudo apt update
 sudo apt install docker-ce
 
+sudo usermod -aG docker ${USER}
+# or
+#sudo gpasswd -a $USER docker
+# Then log out or restart is required
+# check here: https://docs.docker.com/install/linux/linux-postinstall/
+
 
 # docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -97,6 +103,9 @@ mkdir ~/go/src/github.com/hiromaily
 
 # IintelliJ Idea
 sudo snap install intellij-idea-community --classic
+
+# Slack
+sudo snap install slack --classic
 
 
 # gesture
@@ -130,6 +139,13 @@ EOT
 
 #echo "abc" | pbcopy
 
+
+# service
+sudo service docker start
+
+# or systemctl
+#sudo systemctl enable docker
+#sudo systemctl disable docker
 
 # check
 apt list --upgradable
