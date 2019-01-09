@@ -135,16 +135,22 @@ chmod a+x TeamSQL.AppImage
 
 # Alacritty
 sudo curl https://sh.rustup.rs -sSf | sh
-sudo apt install cmake libfreetype6-dev libfontconfig1-dev xclip cargo
+source ~/.profile
+rustup update
+
+sudo apt install cmake libfreetype6-dev libfontconfig1-dev xclip
 
 cd ~/Downloads
 git clone https://github.com/jwilm/alacritty.git
 cd alacritty
 cargo build --release
 
-cp target/release/alacritty /usr/local/bin
-cp Alacritty.desktop ~/.local/share/applications
+sudo cp target/release/alacritty /usr/local/bin
+cp alacritty.desktop ~/.local/share/applications
+sudo desktop-file-install alacritty.desktop
+sudo update-desktop-database
 
+sudo mkdir -p /usr/local/share/man/man1
 gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
 
 cp alacritty-completions.bash  ~/.alacritty
