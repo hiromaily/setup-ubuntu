@@ -135,7 +135,7 @@ chmod a+x TeamSQL.AppImage
 
 # Alacritty
 sudo curl https://sh.rustup.rs -sSf | sh
-apt install cmake libfreetype6-dev libfontconfig1-dev xclip
+sudo apt install cmake libfreetype6-dev libfontconfig1-dev xclip cargo
 
 cd ~/Downloads
 git clone https://github.com/jwilm/alacritty.git
