@@ -4,13 +4,11 @@
 sudo apt update && sudo apt upgrade -y
 
 # basic
-sudo apt update
-sudo apt install software-properties-common apt-transport-https \
-         curl wget vim git gcc build-essential xclip xsel snapd -y
+sudo apt install software-properties-common apt-transport-https ca-certificates \
+         snapd curl wget vim git gcc build-essential xclip xsel screen -y
 
 
 # install ansible
-sudo apt update
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible
@@ -54,12 +52,11 @@ sudo gdebi google-chrome-stable_current_amd64.deb
 #  delete old one
 sudo apt remove docker docker-engine docker.io containerd runc
 
-sudo apt update
-sudo apt install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    software-properties-common
+#sudo apt install \
+#    apt-transport-https \
+#    ca-certificates \
+#    curl \
+#    software-properties-common
 
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -115,6 +112,7 @@ mkdir ~/go/src/github.com/hiromaily
 # golang by snap
 #sudo snap install go --classic
 
+
 # IintelliJ Idea
 sudo snap install intellij-idea-community --classic
 
@@ -123,6 +121,35 @@ sudo snap install slack --classic
 
 # Skype
 sudo snap install skype --classic
+
+# TeamSQL
+wget https://teamsql.io/latest/linux -O TeamSQL.AppImage
+chmod a+x TeamSQL.AppImage
+./TeamSQL.AppImage
+#sudo chown -R ~/.config/TeamSQL/
+
+#Under your .config file you should see TeamSQL File.
+#Open terminal and type sudo chown -R .config/TeamSQL/
+#After that, reboot your Ubuntu and then TeamSQL App will be able to access your config files.
+
+
+# Alacritty
+sudo curl https://sh.rustup.rs -sSf | sh
+apt install cmake libfreetype6-dev libfontconfig1-dev xclip
+
+cd ~/Downloads
+git clone https://github.com/jwilm/alacritty.git
+cd alacritty
+cargo build --release
+
+cp target/release/alacritty /usr/local/bin
+cp Alacritty.desktop ~/.local/share/applications
+
+gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+
+cp alacritty-completions.bash  ~/.alacritty
+echo "source ~/.alacritty" >> ~/.bashrc
+
 
 
 # gesture
