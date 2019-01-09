@@ -52,7 +52,7 @@ sudo gdebi google-chrome-stable_current_amd64.deb
 
 # docker
 #  delete old one
-sudo apt-get remove docker docker-engine docker.io containerd runc
+sudo apt remove docker docker-engine docker.io containerd runc
 
 sudo apt update
 sudo apt install \
@@ -79,6 +79,15 @@ sudo usermod -aG docker ${USER}
 # Then log out or restart is required
 # check here: https://docs.docker.com/install/linux/linux-postinstall/
 
+# docker by snap
+#https://github.com/docker/docker-snap
+#sudo snap install docker
+#sudo addgroup --system docker
+##sudo adduser $USER docker
+#newgrp docker
+#sudo snap disable docker
+#sudo snap enable docker
+
 
 # docker-compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -90,6 +99,9 @@ wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add
 sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
 sudo apt install code
 
+# vscode by snap
+#sudo snap install vscode --classic
+
 
 # golang
 wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
@@ -100,12 +112,17 @@ mkdir ~/go/src/github.com/hiromaily
 # modified ~/.profile
 #PATH=$PATH:/usr/local/go/bin
 
+# golang by snap
+#sudo snap install go --classic
 
 # IintelliJ Idea
 sudo snap install intellij-idea-community --classic
 
 # Slack
 sudo snap install slack --classic
+
+# Skype
+sudo snap install skype --classic
 
 
 # gesture

@@ -47,6 +47,15 @@ apt depends pkg_name
 apt changelog pkg_name
 
 
+## About snap command
+[Snap usage](https://tutorials.ubuntu.com/tutorial/basic-snap-usage#0)
+
+- install snapd `sudo apt install snapd`
+- find `snap find xxxxx`
+- install `sudo snap install xxxxx`
+- remove `sudo snap remove xxxxx`
+
+
 ## On terminal
 - Ctrl + Z:
 
