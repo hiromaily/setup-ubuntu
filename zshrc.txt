@@ -610,10 +610,3 @@ function dislike() {
   echo '--> Java'
   echo '--> .NET'
 }
-
-
-
-
-
-
-source ~/.alacritty

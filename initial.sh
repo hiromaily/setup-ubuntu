@@ -248,10 +248,8 @@ gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev
 # for bash
 #cp alacritty-completions.bash ~/.alacritty
 #echo "source ~/.alacritty" >> ~/.bashrc
-# for bash
-cp alacritty-completions.zsh ~/.alacritty
-echo "source ~/.alacritty" >> ~/.zshrc
-
+# for zsh
+cp alacritty-completions.zsh /usr/share/zsh/functions/Completion/X/_alacritty
 
 # gesture
 # https://www.omgubuntu.co.uk/2018/09/linux-touchpad-gestures-app
