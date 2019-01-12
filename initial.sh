@@ -245,9 +245,12 @@ sudo update-desktop-database
 sudo mkdir -p /usr/local/share/man/man1
 gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
 
-cp alacritty-completions.bash  ~/.alacritty
-echo "source ~/.alacritty" >> ~/.bashrc
-
+# for bash
+#cp alacritty-completions.bash ~/.alacritty
+#echo "source ~/.alacritty" >> ~/.bashrc
+# for bash
+cp alacritty-completions.zsh ~/.alacritty
+echo "source ~/.alacritty" >> ~/.zshrc
 
 
 # gesture
