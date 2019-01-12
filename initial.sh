@@ -5,7 +5,14 @@ sudo apt update && sudo apt upgrade -y
 
 # basic
 sudo apt install software-properties-common apt-transport-https ca-certificates \
-         snapd curl wget vim git gcc build-essential xclip xsel screen -y
+         snapd net-tools curl wget vim git gcc build-essential xclip xsel screen \
+         htop -y
+
+#zsh
+sudo apt install zsh install git-core -y
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+chsh -s `which zsh`
+sudo shutdown -r 0
 
 
 # install ansible
@@ -38,6 +45,91 @@ git config --global core.editor 'vim -c "set fenc=utf-8"'
 git config --global color.diff auto
 git config --global color.status auto
 git config --global color.branch auto
+
+cat << "EOT" > ~/.gitconfig
+
+[alias]
+	# alias
+	al = config --get-regexp alias # show git alias list
+	# status
+	st = status
+	# branch
+	br = branch
+	brt = branch -vv # show upstream branch name with minor
+	tb = rev-parse --abbrev-ref --symbolic-full-name @{u} # show upstream branch name
+	cb = rev-parse --abbrev-ref HEAD # show current branch name
+	brn = "!f(s){ git branch | head -n $1 | tail -n 1;};f" # get `n`th branch name from the top in branch list
+	brdn = "!f(){ brname=$(git branch | head -n $1 | tail -n 1); git branch -D $brname;};f" # delete branch by number in branch list
+	brnm = branch -r --no-merged origin/develop # check no-merged branches to origin/develop from remote
+	brm = branch -r --merged origin/develop # check merged branches to origin/develop from remote
+	# checkout
+	ch = checkout
+	chnew = "!f(){ git ch -b $1 origin/master;};f" # create new branch
+	chn = "!f(){ brname=$(git branch | head -n $1 | tail -n 1); git checkout $brname;};f" # change branch by number from the top in branch list , `gitbr`command can get branch list
+	# add
+	addm = "!f(){ git diff --name-only --diff-filter=M | xargs git add;};f" # git add files without untracked files (= git add -u)
+	# commit
+	cm = commit -m # commit with message
+	coam = "!f(){ git commit -am \"$1\";};f" # commit with add all modified files and message
+	# push
+	pushf = push --force-with-lease # push with safe push
+	pum = push origin master
+	pumf = push -f origin master
+	puc = "!f(){ br=$(git rev-parse --abbrev-ref HEAD);git push origin \"${br}\";};f" # get current branch name, and push there.
+	pucu = "!f(){ br=$(git rev-parse --abbrev-ref HEAD);git push -u origin \"${br}\";};f" # get current branch name, and push there with setting upstream
+	pucf = "!f(){ br=$(git rev-parse --abbrev-ref HEAD);git push -f origin \"${br}\";};f" # get current branch name, and push there with force
+	# reset
+	canadd = reset HEAD # cancel files by git add
+	rs = reset --soft HEAD~ # reset commit and add action
+	rsm = reset --hard origin/master # reset by origin/master condition
+	rscurrent = "!f(){ tracebranch=$(git rev-parse --abbrev-ref --symbolic-full-name @{u}); git reset --hard $tracebranch;};f" # git reset by current upstream branch
+	recm = "!f(){ cmt=$(git log -n 1 --pretty=format:%s);git reset --soft HEAD~;git commit -am \"${cmt}\";};f" #reset and commit with same message again.
+	canmerge = git reset --hard ORIG_HEAD # cancel merge by previous commit
+	# rebase
+	rbm = rebase origin/master # this rebase means, try to marge from latest origin/master
+	# remove
+	rmc = rm --cached # leave files, but exclude that file from git management.
+	cln = clean -dn # remove Remove untracked files and directories but `n` means dry-run
+	clnok = clean -fd # remove files, but make sure by git cln in advance
+	cln2 = clean -dnx # remove Remove untracked files and directories including files set in .gitignore but `n` means dry-run
+	clnok2 = clean -fdx # remove files, but make sure by git cln in advance
+	# log
+	lg = log --oneline --graph --decorate # show log with oneline
+	last = log -1 HEAD # show latest log
+	cmmsg = log -n 1 --pretty=format:\"%s\" # show latest commit message
+	cmtid = log -n 1 --pretty=format:\"%H\" # show latest commit id
+	showhis = "!f(){ id=$(git log -n $1 --pretty=format:%h);git show ${id} $2;};f" # git showhis 1 => show latest modification of code
+	dellist = log --diff-filter=D --summary # show deleted file histories in git log
+	pushor = "!f(){ brc=$(git rev-parse --abbrev-ref HEAD); git log origin/$brc..$brc;};f" # get current branch and make sure if I've already push or not
+	rewritelog = "!f(){ git filter-branch --commit-filter ' if [ \"\" = wrong@address.local ]; then GIT_AUTHOR_NAME=myname; GIT_AUTHOR_EMAIL=right@address.com; fi; git commit-tree \"\";' HEAD; };f" # rewrite log histories
+	# diff
+	dfc = diff --cached # diff between index and committed file in HEAD
+	dff = "!f(){ git diff $1:$3 $2:$3;};f" # dff $1:branch A, $2:branch B, $3:file path
+	diffbr = difftool --dir-diff # diff current entire changes in work directory
+	# fetch
+	ft = fetch origin
+	fta = fetch --all
+	clnf = fetch -p origin # Before fetching, remove any remote-tracking references that no longer exist on the remote
+	# remote
+	delremote = push --delete origin # delete remote branch
+	renameremote = "!f(){ git checkout -b $1 origin/$1; git branch -m $1 $2; git push origin --delete $1; git push origin $2;};f" # change remote branch
+	# worktree
+	wt = worktree
+	wtlist = worktree list
+	wtadd = "!f(){ git worktree add worktree/$1 $1;};f"
+	wtrm = "!f(){ rm -rf worktree/$1; git worktree prune;};f"
+	# other
+	nottrace = "!f(){ git update-index --assume-unchanged $1;};f" #ignore files like gitignore
+	changeurl = "!f(){ url=$(git remote -v | head -n 1 | sed -e \"s/(fetch)//\" -e \"s/https:\\/\\//git@/\" -e \"s/https:\\/\\//git@/\");git remote set-url \"${url}\";};f"
+	echo = "!f(){ url=$(git remote -v | head -n 1 | sed -e \"s/(fetch)//\" -e \"s/https:\\/\\//git@/\" -e \"s/https:\\/\\//git@/\");echo \"${url}\";};f"
+	chtag = checkout -b $1 refs/tags/$1
+	cmtrank = shortlog -sn origin/master --after=\"date +%Y/%m/01\" --before=\"date +%Y/%m/%d\"
+	cmtrankall = shortlog -s origin/master
+	cm2 = commit -S -m
+	difcm = "!f(){ tb=$(git rev-parse --abbrev-ref --symbolic-full-name @{u});git diff HEAD..${tb};};f"
+	updsub = submodule update --init --recursive
+
+EOT
 
 
 # chrome
@@ -178,12 +270,17 @@ git clone https://gitlab.com/cunidev/gestures
 cd gestures
 sudo python3 setup.py install
 
+# Edit $HOME/.config/libinput-gestures.conf
+
 
 # add to .bashrc
 cat << "EOT" > ~/.bashrc
 
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
+
+
+
 
 EOT
 
