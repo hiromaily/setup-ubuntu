@@ -9,7 +9,7 @@ sudo apt install software-properties-common apt-transport-https ca-certificates 
          htop -y
 
 #zsh
-sudo apt install zsh install git-core -y
+sudo apt install zsh git-core -y
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
 chsh -s `which zsh`
 sudo shutdown -r 0

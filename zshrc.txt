@@ -1,0 +1,616 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+  export ZSH="/home/hy/.oh-my-zsh"
+
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(
+  git
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+
+
+
+# Environment Variable
+export LANG=ja_JP.UTF-8
+
+# Use Color
+autoload -Uz colors
+colors
+
+# Key bind like emacs
+#bindkey -e
+
+# Settings History
+setopt histignorealldups
+
+HISTFILE=~/.zsh_history
+HISTSIZE=1000000
+SAVEHIST=1000000
+
+# Prompt
+# 1 line
+# PROMPT="%~ %# "
+# 2 line
+#PROMPT="%{${fg[green]}%}[%n@%m]%{${reset_color}%} %~
+#%# "
+PROMPT="%m%#/%c "
+
+
+########################################################################
+# Separation
+########################################################################
+# 単語の区切り文字を指定する
+autoload -Uz select-word-style
+select-word-style default
+# ここで指定した文字は単語区切りとみなされる
+# / も区切りと扱うので、^W でディレクトリ１つ分を削除できる
+zstyle ':zle:*' word-chars " /=;@:{},|"
+zstyle ':zle:*' word-style unspecified
+
+########################################################################
+# Supplement
+########################################################################
+#for zsh-completions
+fpath=(/usr/local/share/zsh-completions $fpath)
+
+# 補完機能を有効にする
+autoload -Uz compinit
+compinit -u
+
+# 補完で小文字でも大文字にマッチさせる
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
+# ../ の後は今いるディレクトリを補完しない
+zstyle ':completion:*' ignore-parents parent pwd ..
+
+# sudo の後ろでコマンド名を補完する
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin /usr/local/bin \
+                   /usr/sbin /usr/bin /sbin /bin /usr/X11R6/bin
+
+# ps コマンドのプロセス名補完
+zstyle ':completion:*:processes' command 'ps x -o pid,s,args'
+
+# 補完後、メニュー選択モードになり左右キーで移動が出来る
+zstyle ':completion:*:default' menu select=2
+
+# Ctrl+rでヒストリーのインクリメンタルサーチ、Ctrl+sで逆順
+bindkey '^r' history-incremental-pattern-search-backward
+bindkey '^s' history-incremental-pattern-search-forward
+
+# コマンドを途中まで入力後、historyから絞り込み
+# 例 ls まで打ってCtrl+pでlsコマンドをさかのぼる、Ctrl+bで逆順
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^p" history-beginning-search-backward-end
+bindkey "^b" history-beginning-search-forward-end
+
+########################################################################
+# vcs_info
+########################################################################
+autoload -Uz vcs_info
+autoload -Uz add-zsh-hook
+
+zstyle ':vcs_info:*' formats '%F{green}(%s)-[%b]%f'
+zstyle ':vcs_info:*' actionformats '%F{red}(%s)-[%b|%a]%f'
+
+function _update_vcs_info_msg() {
+    LANG=en_US.UTF-8 vcs_info
+    RPROMPT="${vcs_info_msg_0_}"
+}
+add-zsh-hook precmd _update_vcs_info_msg
+
+
+########################################################################
+# オプション
+########################################################################
+# 日本語ファイル名を表示可能にする
+setopt print_eight_bit
+
+# beep を無効にする
+setopt no_beep
+
+# フローコントロールを無効にする
+setopt no_flow_control
+
+# '#' 以降をコメントとして扱う
+setopt interactive_comments
+
+# ディレクトリ名だけでcdする
+#setopt auto_cd
+
+# cd したら自動的にpushdする(popd)
+setopt auto_pushd
+
+# 重複したディレクトリを追加しない
+setopt pushd_ignore_dups
+
+# 同時に起動したzshの間でヒストリを共有する
+setopt share_history
+
+# 同じコマンドをヒストリに残さない
+setopt hist_ignore_all_dups
+
+# スペースから始まるコマンド行はヒストリに残さない
+setopt hist_ignore_space
+
+# ヒストリに保存するときに余分なスペースを削除する
+setopt hist_reduce_blanks
+
+# 高機能なワイルドカード展開を使用する
+setopt extended_glob
+
+########################################
+# キーバインド
+########################################
+# ^R で履歴検索をするときに * でワイルドカードを使用出来るようにする
+bindkey '^R' history-incremental-pattern-search-backward
+
+
+########################################
+# set default application by suffix
+########################################
+alias -s py=python
+
+
+########################################
+# alias
+########################################
+# sudo の後のコマンドでエイリアスを有効にする
+#alias sudo='sudo '
+
+# グローバルエイリアス
+#alias -g L='| less'
+#alias -g G='| grep'
+
+# BASICS
+#ls時の色指定
+export LSCOLORS=cxfxcxdxbxegedabagacad
+
+#Linux用の設定
+alias ls='ls -F --color=auto'
+#alias ls="ls -G"
+
+alias la='ls -a'
+alias ll='ls -a -l'
+alias lsf='ls -1'
+
+alias up='cd ../'
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias mkdir='mkdir -p'
+alias al='alias'
+alias pd='pushd'
+alias pp='popd'
+alias pss='ps alx'
+alias hs='history'
+
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+alias vimz='vim ~/.zshrc'
+alias srcz='source ~/.zshrc'
+
+# change tab into space #arg1: filename
+alias chtab='(){expand -t 4 $1 > $1}'
+
+# restart shell
+alias rstsh='exec $SHELL'
+
+
+# Golang Development
+alias goget='go get -u -d -v ./...'
+alias gof='go fmt `go list ./... | grep -v "/vendor/"`'
+alias gov='go vet `go list ./... | grep -v "/vendor/"`'
+alias gomis='misspell `find . -name "*.go" | grep -v "/vendor/"`'
+alias goinf='ineffassign .'
+
+# Dep is dependency tool
+alias deldepcache='rm -rf ${GOPATH}/pkg/dep/sources'
+
+function diffgo() {
+  if [[ -n $(git diff  origin/master --name-only | egrep '\.go$') ]]; then
+    echo 'go files are changed!'
+  else
+    echo 'skip Metalint because of no change in go files'
+  fi
+}
+
+function gochk() {
+  echo '### 01 ### go fmt'
+  go fmt `go list ./... | grep -v "/vendor/"`
+  #gofmt -s `go list ./... | grep -v "/vendor/"`
+  echo '### 02 ### go vet'
+  go vet `go list ./... | grep -v "/vendor/"`
+  echo '### 03 ### go fix'
+  go fix `go list ./... | grep -v '/vendor/'`
+  echo '### 04 ### misspell'
+  misspell `find . -name "*.go" | grep -v "/vendor/"`
+  echo '### 05 ### inneffassign'
+  ineffassign .
+  #echo '### 06 ### unused'
+  #unused $(go list ./... | grep -v /vendor/)
+  #echo '### 07 ### gosimple'
+  #gosimple $(go list ./... | grep -v /vendor/)
+  #echo '### 08 ### staticcheck'
+  #staticcheck $(go list ./... | grep -v /vendor/)
+}
+
+alias gochk2='golint ./... | grep -v "^vendor\/" || true'
+
+alias gosrc='cd ${GOPATH}/src/'
+alias gobin='cd ${GOPATH}/bin/'
+alias gopkg='cd ${GOPATH}/pkg/'
+
+# directory
+alias hiromaily='cd ${GOPATH}/src/github.com/hiromaily/'
+alias golibs='cd ${GOPATH}/src/github.com/hiromaily/golibs'
+
+# my gotools
+alias gttf='gotestfile -n'
+alias en='gocipher -m e'
+alias de='gocipher -m d'
+alias gtdep='godepen -target ${HOME}/work/go/src/github.com'
+alias gtsrt='(){gosubsrt -f $1 -t $2}'
+
+
+# Docker
+export DOCKER_HUB_USERNAME=hirokiy
+export DOCKER_HUB_PASSWORD=dochanhiro88
+
+alias dcdata='cd ~/Library/Containers/com.docker.docker/Data'
+alias dcv='docker version'
+alias dcs'docker search'
+alias dcpull='docker pull'
+alias dcimg='docker images -a'
+alias dclog='docker logs'
+alias dcexec='(){docker exec -ti $1 bash }'
+
+alias dcps='docker ps -a'
+alias dcpsn='docker ps -a --format "{{.Names}}"'
+# dcpss server
+alias dcpss='(){docker ps -a -f name=$1 --format "{{.Names}}"}'
+# dcpssh server
+alias dcpssh='(){docker ps -f name=$1 --format "{{.Names}}" | head -n 1 }'
+# dcpssc server
+alias dcpssc='(){docker ps -f name=$1 --format "{{.Names}}" | head -n 1 | pbcopy }'
+alias dcspid='docker ps -f name=governance_server_1 --format "{{.ID}}"'
+
+alias dcstall='docker stop $(docker ps -q)'
+alias dcrmall='docker rm -f $(docker ps -a --format "{{.Names}}")'
+alias dcrm='docker rm -f'
+alias dcrmi='docker rmi -f'
+#alias dcimgcln='docker rmi $(docker images -aqf "dangling=true") 2> /dev/null'
+alias dcimgcln='docker rmi -f $(docker images -aqf "dangling=true" --no-trunc)'
+#alias dcrmiall='docker images -a | awk '\''/<none/{print $3}'\'' | xargs docker rmi'
+alias dcimgall='docker rmi -f $(docker images -a -q)'
+alias dcclnall='docker system prune -a'
+
+alias dvls='docker volume ls'
+alias dvrm='docker volume rm'
+alias dvrmall='docker volume prune'
+#alias dvrmdb='docker volume rm governance_db'
+function dcgettag () {
+  curl https://registry.hub.docker.com/v2/repositories/library/$1/tags/ | jq '."results"[]["name"]'
+}
+
+
+# Docker-compose
+alias dcom='docker-compose'
+alias dcup='docker-compose up'
+alias dcdw='docker-compose down'
+alias dcdwv='docker-compose down -v'
+alias dcbld='docker-compose build'
+alias dcbldnc='docker-compose build --no-cache'
+alias dcbldp='docker-compose build --pull'
+
+
+# Docker-machine
+#alias dm='docker-machine'
+alias dmc='docker-machine create --driver virtualbox'
+alias dmip='docker-machine ip'
+#alias dme='eval $(docker-machine env default)'
+function dmenv () {
+    eval "$(docker-machine env $1)"
+}
+alias dmchk='env | grep DOCKER'
+function dmenvdel () {
+    unset DOCKER_TLS_VERIFY
+    unset DOCKER_CERT_PATH
+    unset DOCKER_MACHINE_NAME
+    unset DOCKER_HOST
+}
+# logout: CTRL+A CTRL+\ followed by 'y'
+alias xhyve='screen ~/Library/Containers/com.docker.docker/Data/com.docker.driver.amd64-linux/tty'
+# find /var/lib/docker/containers/ -name '*.log' | xargs rm
+
+
+# Git
+alias gitsub='git ls-files --stage | grep 160000'
+
+alias gitlog='git log --oneline --graph --decorate'
+function gitbr () {
+  count=1
+  flg=0
+  for name in `git branch`
+  do
+    if [ $name = '*' ]; then
+      flg=1
+    else
+      if [ $flg = 1 ]; then
+        echo '['${count}']*' $name
+      else
+        echo '['${count}']' $name
+      fi
+      let ++count
+      flg=0
+    fi
+  done
+}
+
+# update submodule
+function gitupdsub () {
+  if [ $# -ne 1 ]; then
+    echo 'set directory name of submodule'
+    return
+  fi
+
+  cd $1; git checkout master; git pull;cd ../;
+  git chnew update_$1
+  git add $1
+  git cm "update $1"
+  git pucu
+}
+
+# delete all unnecessary remote branches
+function gitrmremote () {
+  for name in `git branch -r --merged origin/develop`
+  do
+    if [[ $name = 'origin/develop' || $name = 'origin/HEAD' || $name = 'origin/feature/GOV-3404-customization' || $name = '->' ]]; then
+      echo 'skip:' $name
+    elif [ `echo $name | grep 'origin/release'` ] ; then
+      echo 'skip:' $name
+    else
+      echo 'delete:' ${name/origin\//}
+      #git push origin --delete ${name/origin\//}
+    fi
+  done
+}
+
+# number of commit
+alias gitcmtrank='git cmtrank | cat -n'
+
+# gitmv README.txt=README.md
+alias gitmv='~/bin/git-mv-with-history.sh'
+
+# git log --no-merges develop..release/v3.0-rc3
+alias diffmrg='git log --no-merges develop..release/v3.0-rc3'
+
+# detect no-included commit
+# gitnocmtlist base_branch search_target_branch lognum
+# gitnocmtlist release/v3.0-rc3 develop 50
+# gitnocmtlist develop 50 (first, set target branch e.g. `git checkout release/v3.0` in advance)
+function gitnocmtlist() {
+  CB=`git rev-parse --abbrev-ref HEAD`
+  echo "===== current branch is ${CB}"
+  echo "===== search target logs are retrieved from ${CB} branch"
+  echo "===== when target logs are not included in $1, show commit id"
+
+  FLG=0
+  LOGS=(`git log --pretty=format:"%H" -n $2`)
+
+  git checkout $1
+
+  echo "= these commit ids were not included in $1 ==>>"
+  for log in $LOGS
+  do
+    for res in `git branch --contains $log`
+    do
+      if [ $res = $1 ]; then
+        #included commit
+        FLG=1
+      fi
+    done
+    if [ $FLG -ne 1 ]; then
+      echo $log
+    fi
+    FLG=0
+  done
+}
+
+
+
+########################################
+# 手順を表示
+########################################
+
+# Display terminal commnand
+function sc() {
+  cat << EOS
+# Move cursor
+ctl + a :     Move to beginning of line
+ctl + e :     Move to end of line
+ctl + u :     Erase to beginning of line
+ctl + k :     Erase to end of line
+opt + <-/-> : Move to key direction by words
+
+＃ Command history
+cmd + sht + ; : Show list of command history
+ctl + r :       Search command histories
+ctl + p/n :     Show command histories
+
+# Clear display
+ctl + l / cmd + k : Clear display
+
+https://support.apple.com/guide/terminal/keyboard-shortcuts-trmlshtcts/mac
+EOS
+}
+
+# Display vim short cut
+function scvim() {
+  cat << EOS
+# Exit
+:q  : Exit
+:q! : Force Exit
+ZZ  : Save and Exit
+ZQ  : Exit
+
+:w         : Save
+:wq        : Save and Exit
+:w filename: Save as filename
+
+# Move Cursor
+gg           : go to first line
+G            : go to end of line
+Ctl + d or f : go down one screen
+Ctl + u or b : go up one screen
+w            : go right one word
+b            : go back one word
+^            : go to left of line
+$            : go to right of line
+
+# Search
+/ : Search
+n : search to down
+N : search to up
+
+# Undo/Redo
+u       : undo
+Ctl + r : redo
+
+EOS
+}
+
+# Display IntelliJ Short cut
+function scide() {
+  cat << EOS
+# bookmark
+chose line and press [F3]
+
+# reference points of function
+[control]+[option]+[H]
+
+# jump to function definition
+[command]+[option]+[B]
+
+# move previous point
+[Command]+ 「[」「]」
+
+# Undo/Redo
+[Command] + [Z]
+[Command] + [Shift] + [Z]
+EOS
+}
+
+# just fun
+function like() {
+  echo '--> golang'
+  echo '--> python'
+  echo '--> microservice architecture'
+  echo '--> DevOps'
+  echo '--> Docker'
+}
+
+function dislike() {
+  echo '--> Java'
+  echo '--> .NET'
+}
+
+
+
+
+
+
+source ~/.alacritty
