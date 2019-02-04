@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 # basic
 sudo apt install software-properties-common apt-transport-https ca-certificates \
          snapd net-tools curl wget vim git gcc build-essential xclip xsel screen \
-         htop -y
+         htop libsecret-tools -y
 
 #zsh
 sudo apt install zsh git-core -y
@@ -250,6 +250,11 @@ sudo update-desktop-database
 
 sudo mkdir -p /usr/local/share/man/man1
 gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+
+# Terminator
+sudo add-apt-repository ppa:gnome-terminator
+sudo apt update
+sudo apt install terminator
 
 # for bash
 #cp alacritty-completions.bash ~/.alacritty
