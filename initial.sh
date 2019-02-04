@@ -6,7 +6,7 @@ sudo apt update && sudo apt upgrade -y
 # basic
 sudo apt install software-properties-common apt-transport-https ca-certificates \
          snapd net-tools curl wget vim git gcc build-essential xclip xsel screen \
-         htop libsecret-tools -y
+         htop libsecret-tools ppa-purge guake -y
 
 #zsh
 sudo apt install zsh git-core -y
@@ -197,6 +197,8 @@ sudo apt install code
 # vscode by snap
 #sudo snap install vscode --classic
 
+# You may found warning after installation
+#https://www.reddit.com/r/linux4noobs/comments/9uv72b/after_install_vscode_in_lubuntu_1804_i_got_error/
 
 # golang
 wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
@@ -252,9 +254,16 @@ sudo mkdir -p /usr/local/share/man/man1
 gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
 
 # Terminator
-sudo add-apt-repository ppa:gnome-terminator
-sudo apt update
-sudo apt install terminator
+#sudo add-apt-repository ppa:gnome-terminator
+#sudo apt update
+#sudo apt install terminator
+# failed...
+#sudo ppa-purge ppa:gnome-terminator
+#sudo add-apt-repository --remove ppa:gnome-terminator
+
+# GNOME Terminal
+
+
 
 # for bash
 #cp alacritty-completions.bash ~/.alacritty
