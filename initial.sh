@@ -6,7 +6,8 @@ sudo apt update && sudo apt upgrade -y
 # basic
 sudo apt install software-properties-common apt-transport-https ca-certificates \
          snapd net-tools curl wget vim git gcc build-essential xclip xsel screen \
-         htop libsecret-tools ppa-purge guake -y
+         htop libsecret-tools ppa-purge figlet -y
+
 
 #zsh
 sudo apt install zsh git-core -y
@@ -21,12 +22,22 @@ git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugi
 #echo "plugins=(… zsh-completions)" >> ~/.zhsrc
 #echo "autoload -U compinit && compinit" >> ~/.zhsrc
 
+
 # install ansible
 sudo apt-add-repository ppa:ansible/ansible
 sudo apt update
 sudo apt install ansible
 
 ansible --version
+
+# sshd
+sudo apt install ssh
+# 1.settings for config
+# sudo vim /etc/ssh/sshd_config
+# 2.client's .ssh/id_rsa.pub have to be set on .ssh/authorized_keys on server
+# 3.sshd should be restarted
+# sudo systemctl enable ssh
+# 4.client settings
 
 
 # ssh
@@ -145,7 +156,6 @@ sudo gdebi google-chrome-stable_current_amd64.deb
 #google-chrome
 
 
-
 # docker
 #  delete old one
 sudo apt remove docker docker-engine docker.io containerd runc
@@ -200,6 +210,7 @@ sudo apt install code
 # You may found warning after installation
 #https://www.reddit.com/r/linux4noobs/comments/9uv72b/after_install_vscode_in_lubuntu_1804_i_got_error/
 
+
 # golang
 wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.11.4.linux-amd64.tar.gz
@@ -253,23 +264,23 @@ sudo update-desktop-database
 sudo mkdir -p /usr/local/share/man/man1
 gzip -c alacritty.man | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
 
-# Terminator
-#sudo add-apt-repository ppa:gnome-terminator
-#sudo apt update
-#sudo apt install terminator
-# failed...
-#sudo ppa-purge ppa:gnome-terminator
-#sudo add-apt-repository --remove ppa:gnome-terminator
-
-# GNOME Terminal
-
-
-
 # for bash
 #cp alacritty-completions.bash ~/.alacritty
 #echo "source ~/.alacritty" >> ~/.bashrc
 # for zsh
 cp alacritty-completions.zsh /usr/share/zsh/functions/Completion/X/_alacritty
+
+
+
+# Terminator
+sudo apt install terminator
+
+# Guake
+sudo apt install guake
+
+# Tilix
+sudo apt install tilix
+
 
 # gesture
 # https://www.omgubuntu.co.uk/2018/09/linux-touchpad-gestures-app
@@ -300,12 +311,35 @@ cat << "EOT" > ~/.bashrc
 alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 
-
-
-
 EOT
 
 #echo "abc" | pbcopy
+
+
+# Language settings
+echo "export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8">>~/.profile
+
+
+# Add user
+sudo adduser machy
+#usermod -d /home/machy machy
+sudo usermod -aG sudo machy
+
+# see user information
+#whoami
+#id -un
+#id -u
+#id -g
+#groups hy
+
+
+# Firewall
+#sudo ufw app list
+#sudo ufw status
+#sudo ufw enable
+#sudo ufw allow OpenSSH
 
 
 # service
@@ -314,6 +348,7 @@ sudo service docker start
 # or systemctl
 #sudo systemctl enable docker
 #sudo systemctl disable docker
+
 
 # check
 apt list --upgradable
