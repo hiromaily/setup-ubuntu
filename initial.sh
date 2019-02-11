@@ -16,12 +16,16 @@ chsh -s `which zsh`
 sudo shutdown -r 0
 
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
 # .zshrc should be modified
 #plugins=(… zsh-completions)
 #autoload -U compinit && compinit
 #echo "plugins=(… zsh-completions)" >> ~/.zhsrc
 #echo "autoload -U compinit && compinit" >> ~/.zhsrc
 
+#plugins=(
+#    zsh-autosuggestions
+#)
 
 # install ansible
 sudo apt-add-repository ppa:ansible/ansible

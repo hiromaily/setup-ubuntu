@@ -57,7 +57,8 @@ apt changelog pkg_name
 
 
 ## On terminal
-- Ctrl + Z:
+- Ctrl + Z: Stop running process
+- Ctrl + L: Delete all lines
 
 
 ## use frequently
